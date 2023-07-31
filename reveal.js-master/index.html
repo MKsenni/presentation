@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1 class="r-fit-text">Regular expressions</h1>
+					<p>
+						<small>Created by <a href="https://github.com/MKsenni">Kseniya Merkulova</a></small>
+					</p>
+				</section>
+
+				<section>
+					<p>
+						A regular expression is a sequence of characters that specifies a match pattern in text. Usually such patterns are used by string-searching algorithms for "find" or "find and replace" operations on strings, or for input validation.
+					</p>
+					<p>
+						<small>The concept of regular expressions began in the 1950s, when the American mathematician <b style="color: aqua;">Stephen Cole Kleene</b> formalized the concept of a regular language. </small>
+					</p>
+					<img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Kleene.jpg" alt="foto_of_Stephen Cole Kleene" style="height: 180px; margin: 0 auto 4rem auto; background: transparent;" class="demo-logo">
+				</section>
+
+				<section>
+					<p>
+						Regular expressions are supported in many programming languages.
+					</p>
+					<p>In JavaScript, regular expressions are also <b style="color: aqua;">objects</b>.</p>
+				</section>
+
+				<!-- Example of nested vertical slides -->
+				<section>
+					<section>
+						<h2>Creating a regular expression:</h2>
+					</section>
+					<section>
+						<p>1.	Using a regular expression literal, which consists of a pattern enclosed between slashes, as follows:</p>
+						<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+							const re = /ab+c/;
+						</code></pre>
+						<p><small>
+							Regular expression literals provide compilation of the regular expression when the script is loaded. If the regular expression remains constant, using this can improve performance. 
+						</small></p>
+					</section>
+					<section>
+						<p>2.	Or calling the constructor function of the RegExp object, as follows:</p>
+						<br>
+						<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+							const re = new RegExp("ab+c");
+						</code></pre>
+						<p><small>
+							Using the constructor function provides runtime compilation of the regular expression. Use the constructor function when you know the regular expression pattern will be changing, or you don't know the pattern and are getting it from another source, such as user input.
+						</small></p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Writing a regular expression pattern</h2>
+					</section>
+					<section>
+						<p>
+							1.	Using simple patterns
+						</p>
+						<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+							/abc/,
+							"Hi, do you know your abc's?"
+							"The latest airplane designs evolved from slabcraft."
+						</code></pre>
+					</section>
+					<section>
+						<p>
+							2.	Using special characters
+						</p>
+						<p>
+							When the search for a match requires something more than a direct match, such as finding one or more b's, or finding white space, you can include special characters in the pattern. 
+						</p>
+						<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+							const re = /\w+\s/g;
+							const str = "fee fi fo fum";
+							const myArray = str.match(re);
+							console.log(myArray);
+							// ["fee ", "fi ", "fo "]
+						</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Lists of the different special characters:</h2>
+						<ul>
+							<li>Character classes</li>
+							<li>Assertions</li>
+							<li>Groups and backreferences</li>
+							<li>Quantifiers</li>
+						</ul>
+					</section>
+					<section style="font-size: 28px;">
+						<table>
+							<thead>
+								<tr>
+									<th>Characters / constructs</th>
+									<th>Corresponding article</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+											[xyz], [^xyz], ., \d, \D, \w, \W, 
+											\s, \S, \t, \r, \n, \v, \f, [\b], 
+											\0, \cX, \xhh, \uhhhh, \u{hhhh}, x|y
+										</code></pre>
+										</td>
+									<td>Character classes distinguish kinds of characters such as, for example, distinguishing between letters and digits.</td>
+								</tr>
+								<tr>
+									<td>
+										<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+											^, $, \b, \B, x(?=y), x(?!y),
+											(?<=y)x, (?<!y)x
+										</code></pre>
+									</td>
+									<td>Assertions include boundaries, which indicate the beginnings and endings of lines and words, and other patterns indicating in some way that a match is possible.</td>
+								</tr>
+								<tr>
+									<td>
+										<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+											(x), (?<Name>x), (?:x), \n,
+											\k<Name></Name>
+										</code></pre>
+									<td>	
+										Groups and backreferences indicate groups of expression characters. Parentheses around any part of the regular expression pattern causes that part of the matched substring to be remembered. Once remembered, the substring can be recalled for other use.</td>
+								</tr>
+								<tr>
+									<td>
+										<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+											x*, x+, x?, x{n}, x{n,}, x{n,m}
+										</code></pre>
+										</td>
+									<td>Quantifiers indicate numbers of characters or expressions to match.</td>
+								</tr>
+							</tbody>
+						</table>
+					</section>
+				</section>
+
+				<section>
+					<h2>Escaping</h2>
+					<p>If you need to use any of the special characters literally (actually searching for a "*", for instance), you must escape it by putting a backslash in front of it. If you're writing a regular expression literal and need to match a slash ("/"), you need to escape that. To match a literal backslash, you need to escape the backslash. </p>
+				</section>
+
+				<section>
+					<section>
+						<h2>Using regular expressions in JavaScript</h2>
+						<table style="font-size: 22px;">
+							<thead>
+								<tr>
+									<th>Method</th>
+									<th>Description</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										exec()
+										</td>
+									<td>Executes a search for a match in a string. It returns an array of information or null on a mismatch.</td>
+								</tr>
+								<tr>
+									<td>
+										test()
+									</td>
+									<td>Tests for a match in a string. It returns true or false.</td>
+								</tr>
+								<tr>
+									<td>
+										match()
+									<td>	
+										Returns an array containing all of the matches, including capturing groups, or null if no match is found.</td>
+								</tr>
+								<tr>
+									<td>
+										matchAll()
+										</td>
+									<td>Returns an iterator containing all of the matches, including capturing groups.</td>
+								</tr>
+								<tr>
+									<td>
+										search()
+										</td>
+									<td>Tests for a match in a string. It returns the index of the match, or -1 if the search fails.</td>
+								</tr>
+								<tr>
+									<td>
+										replace()
+										</td>
+									<td>Executes a search for a match in a string, and replaces the matched substring with a replacement substring.</td>
+								</tr>
+								<tr>
+									<td>
+										replaceAll()
+										</td>
+									<td>Executes a search for all matches in a string, and replaces the matched substrings with a replacement substring.</td>
+								</tr>
+								<tr>
+									<td>
+										split()
+										</td>
+									<td>Uses a regular expression or a fixed string to break a string into an array of substrings.</td>
+								</tr>
+							</tbody>
+						</table>
+					</section>
+					<section>
+						<h2>For example</h2>
+						<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+							const myRe = /d(b+)d/g;
+							const myArray = myRe.exec("cdbbdbsbz");
+							console.log(`The value of lastIndex is ${myRe.lastIndex}`);
+							// "The value of lastIndex is 5"
+						</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Advanced searching with flags</h2>
+						<table style="font-size: 22px;">
+							<thead>
+								<tr>
+									<th>Flag</th>
+									<th>Description</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										d
+										</td>
+									<td>Generate indices for substring matches.</td>
+								</tr>
+								<tr>
+									<td>
+										g
+									</td>
+									<td>Global search.</td>
+								</tr>
+								<tr>
+									<td>
+										i
+									<td>	
+										Case-insensitive search.</td>
+								</tr>
+								<tr>
+									<td>
+										m
+										</td>
+									<td>Allows ^ and $ to match newline characters.</td>
+								</tr>
+								<tr>
+									<td>
+										s
+										</td>
+									<td>Allows . to match newline characters.</td>
+								</tr>
+								<tr>
+									<td>
+										u
+										</td>
+									<td>"Unicode"; treat a pattern as a sequence of Unicode code points.</td>
+								</tr>
+								<tr>
+									<td>
+										v
+										</td>
+									<td>An upgrade to the u mode with more Unicode features.</td>
+								</tr>
+								<tr>
+									<td>
+										y
+										</td>
+									<td>Perform a "sticky" search that matches starting at the current position in the target string.</td>
+								</tr>
+							</tbody>
+						</table>
+					</section>
+					<section>
+						<h3>
+							To include a flag with the regular expression, use this syntax:
+						</h3>
+						<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+							const re = /pattern/flags;
+						</code></pre>
+						<p>or</p>
+						<pre data-id="code-animation"><code class="hljs javascript" data-trim data-line-numbers>
+							const re = new RegExp("pattern", "flags");
+						</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<h2>Tools</h2>
+					<p>
+						- <a href="https://regexr.com/">RegExr</a><span> An online tool to learn, build, & test Regular Expressions.</span> <br>
+						- <a href="https://regex101.com/">Regex tester</a><span> An online regex builder/debugger</span> <br>
+						- <a href="https://regexlearn.com/">Regex interactive tutorial</a><span> An online interactive tutorials, Cheat sheet, & Playground.</span> <br>
+						- <a href="https://extendsclass.com/regex-tester.html">Regex visualizer</a><span> An online visual regex tester.</span>
+					</p>
+				</section>
+
+				<section>
+					<h2>References</h2>
+					<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions#examples">MDN Regular expressions</a><br>
+					<a href="https://en.wikipedia.org/wiki/Regular_expression">Wiki</a><br>
+				</section>
+
+				<section style="text-align: left;">
+					<h1>THE END</h1>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
